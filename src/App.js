@@ -25,16 +25,22 @@ class App extends Component {
     // Render: componentWillMount() -> render() -> componentDidMount()
     // Update: componentWillReceiveProps() -> shouldComponentUpdate() -> componentWillUpdate() -> render() -> componentDidUpdate()
 
-    componentWillMount(){
-        console.log("first: componentWillMount");
-    }
+    state = {
+        greeting: 'Hello!'
+    };
 
     componentDidMount(){
-        console.log("last: componentDidMount");
+        setTimeout(() => {
+            // Bad: directly update state, this.state.greeting = "something"
+            this.setState({
+                greeting: 'Hello again!'
+            })
+        }, 2000);
     }
 
     render() {
         return <div className="App">
+            {this.state.greeting}
             {movies.map((movie, index) => {
                 return <Movie title={movie.title} poster={movie.poster} key={index}/>;
             })}
